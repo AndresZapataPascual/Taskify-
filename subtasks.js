@@ -46,10 +46,7 @@ function addSubtask(userUid, taskId, subtaskText) {
     subtaskRef.set({
         subtask: subtaskText
     }).then(() => {
-        // Agregar la subtarea a la lista después de guardarla en la base de datos
-        const subtaskList = document.getElementById('subtaskList');
-        const listItem = createSubtaskElement(subtaskId, subtaskText);
-        subtaskList.appendChild(listItem);
+        
     }).catch((error) => {
         console.error('Error al guardar la subtarea:', error);
     });
@@ -66,7 +63,7 @@ function createSubtaskElement(subtaskId, subtaskText) {
     deleteButton.src = './Imagenes/delete.png'; 
     deleteButton.alt = 'Eliminar';
     deleteButton.addEventListener('click', function() {
-        deleteTask(subtaskId, listItem);
+        deleteSubtask(subtaskId, listItem);
     });
 
     listItem.appendChild(deleteButton);
@@ -98,7 +95,9 @@ function loadSubtasks(userUid, taskId) {
     subtaskRef.on('value', (snapshot) => {
         const subtasks = snapshot.val();
         const subtaskList = document.getElementById('subtaskList');
-        subtaskList.innerHTML = ''; // Limpiar la lista antes de cargar
+        
+        // Limpiar la lista antes de cargar
+        subtaskList.innerHTML = '';
 
         for (const subtaskId in subtasks) {
             const subtaskText = subtasks[subtaskId].subtask;
