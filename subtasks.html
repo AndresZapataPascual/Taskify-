@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/Imagenes/Logo.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@1,300;1,600&display=swap" rel="stylesheet">
+    <title>Taskify - Lista de Subtareas</title>
+    <link rel="stylesheet" href="subtasks.css">
+</head>
+<body>
+
+    <div class="container">
+        <header>           
+            <img src="/Imagenes/Logo.png" alt="Logo de Taskify" class="logo">
+            <h1>Taskify</h1>
+            <h2 id="taskName"></h2> <!-- Elemento para mostrar el nombre de la tarea -->
+        </header>
+
+        <main>
+            <section id="subtaskSection">
+                <h2>Crear Tarea</h2>
+                <form id="subtaskForm">
+                    <label for="subtasklabel">Nueva Tarea:</label>
+                    <input type="text" id="subtaskInput" required>
+                    <button type="submit">Agregar Tarea</button>
+                </form>
+                <ul id="subtaskList"></ul>
+            </section>
+        </main>
+    </div>
+   
+    <!-- Scripts de Firebase sin módulos -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+
+    <!-- Tu script personalizado -->
+    <script src="subtasks.js"></script>
+</body>
+</html>

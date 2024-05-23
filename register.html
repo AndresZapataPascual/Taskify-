@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/Imagenes/Logo.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@1,300;1,600&display=swap" rel="stylesheet">
+    <title>Taskify - Registro de Cuenta</title>
+    <link rel="stylesheet" href="register.css">
+</head>
+<body> 
+    <div class="container">
+        <header>
+            <img src="/Imagenes/Logo.png" alt="Logo de Taskify" class="logo">
+            <h1>Taskify</h1>
+        </header>
+        <main>
+            <section id="registro">
+                <h2>Crear Cuenta </h2>
+                <form id="signupForm">
+                    <label for="newName">Nombre:</label>
+                    <input type="text" id="newName" required><br>
+                    <label for="newEmail">Correo Electrónico:</label>
+                    <input type="email" id="newEmail" required><br>
+                    <label for="newPassword">Contraseña:</label>
+                    <input type="password" id="newPassword" required><br>
+                    <button type="submit">Crear Usuario</button>
+                </form>                
+                <p>¿Ya tienes una cuenta? <a href="login.html">Iniciar Sesión</a></p>
+            </section>
+        </main>
+    </div>
+   
+    <!-- Scripts de Firebase sin módulos -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <!-- Tu script personalizado -->
+    <script src="register.js"></script>
+</body>
+</html>

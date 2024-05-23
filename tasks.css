@@ -1,0 +1,112 @@
+body {
+    font-family: 'Kanit', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #78a3ae; 
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.logo {
+    width: 150px;  
+}
+
+header {
+    font-weight: 300;
+    font-size: 1.3em;
+    font-style: italic;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+header h1 {
+    font-weight: 600;
+    font-size: 3.2em;
+    color: #fff;
+    margin: 0;
+}
+
+
+button, input[type="text"] {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+button {
+    background-color: #364259;
+    color: #fff;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #FA616A; 
+}
+
+
+label, input {
+    margin: 10px;
+    width: 55%;
+}
+
+input[type="text"] {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+button[type="submit"] {
+    width: 120px;
+    height: 40px;
+}
+
+ul {
+    padding: 0;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    list-style-type: none; 
+}
+
+.task-text {
+    flex: 1;
+    width: 200px;
+    padding: 5px 10px;
+}
+
+.task-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.task-buttons button {
+    width: 100px;
+    height: 40px;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #364259;
+    color: #f0f1e4;
+}
+
+.task-buttons button:hover {
+    background-color: #FA616A;
+}
+
+.task-buttons img {
+    width: 30px;
+    height: 30px;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}

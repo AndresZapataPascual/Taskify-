@@ -1,0 +1,77 @@
+body {
+    font-family: 'Kanit', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #78a3ae;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.logo {
+    width: 150px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+h1, h2 {
+    font-weight: 600;
+}
+
+button, input[type="text"] {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+button {
+    background-color: #364259;
+    color: #fff;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #FA616A;
+}
+
+input[type="text"] {
+    width: 50%;
+}
+
+#subtaskSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+#subtaskForm {
+    margin-bottom: 20px;
+    
+}
+
+#subtaskList {
+    list-style-type: none;
+    padding: 0;
+}
+
+#subtaskList li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.subtask-buttons img {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
