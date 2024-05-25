@@ -9,7 +9,6 @@ const firebaseConfig = {
     measurementId: "G-7G8ZGP85E4"
 };
 
-
 // Inicializar Firebase
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
@@ -51,11 +50,10 @@ document.getElementById('signupForm').addEventListener('submit', (e) => {
             console.error('Error al crear el usuario:', errorMessage);
             alert('Error al crear el usuario: ' + errorMessage);
         });
-
-        function saveUserName(userId, name) {
-            firebase.database().ref('users/' + userId).set({
-                name: name,
-            });
-        }
 });
 
+const saveUserName = (userId, name) => {
+    firebase.database().ref('users/' + userId).set({
+        name: name,
+    });
+};

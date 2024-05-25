@@ -12,11 +12,11 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
-document.addEventListener('DOMContentLoaded', function() {
-    firebase.auth().onAuthStateChanged((user) => {
+document.addEventListener('DOMContentLoaded', () => {
+    firebase.auth().onAuthStateChanged(user => {
         if (user) {
             // Obtener el nombre del usuario de la base de datos
-            firebase.database().ref('users/' + user.uid).once('value').then((snapshot) => {
+            firebase.database().ref('users/' + user.uid).once('value').then(snapshot => {
                 const userName = snapshot.val().name;
                 document.getElementById('userName').textContent = `Hola, ${userName}`;
             });
@@ -28,25 +28,25 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    document.getElementById('Signoff').addEventListener('click', function() {
+    document.getElementById('Signoff').addEventListener('click', () => {
         firebase.auth().signOut().then(() => {
             window.location.href = 'index.html'; 
         }).catch((error) => {
             console.error('Error al cerrar sesión:', error);
         });
     });
+
+    document.getElementById('taskForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const taskInput = document.getElementById('taskInput').value;
+        if (taskInput.trim() !== '') {
+            addTask(taskInput);
+            document.getElementById('taskInput').value = '';
+        }
+    });
 });
 
-document.getElementById('taskForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const taskInput = document.getElementById('taskInput').value;
-    if (taskInput.trim() !== '') {
-        addTask(taskInput);
-        document.getElementById('taskInput').value = '';
-    }
-});
-
-function addTask(taskText) {
+const addTask = (taskText) => {
     const user = firebase.auth().currentUser;
     if (user) {
         const userUid = user.uid;
@@ -62,9 +62,9 @@ function addTask(taskText) {
     } else {
         console.error('No se pudo obtener el usuario actual');
     }
-}
+};
 
-function createTaskElement(taskId, taskText) {
+const createTaskElement = (taskId, taskText) => {
     const listItem = document.createElement('li');
 
     const taskTextElement = document.createElement('span');
@@ -77,13 +77,13 @@ function createTaskElement(taskId, taskText) {
     const deleteButton = document.createElement('img');
     deleteButton.src = './Imagenes/delete.png'; 
     deleteButton.alt = 'Eliminar';
-    deleteButton.addEventListener('click', function() {
+    deleteButton.addEventListener('click', () => {
         deleteTask(taskId, listItem);
     });
 
     const viewButton = document.createElement('button');
     viewButton.textContent = 'Tareas';
-    viewButton.addEventListener('click', function() {
+    viewButton.addEventListener('click', () => {
         window.location.href = `subtasks.html?taskId=${taskId}&taskName=${taskText}`;
     });
 
@@ -94,9 +94,9 @@ function createTaskElement(taskId, taskText) {
     listItem.appendChild(buttonsContainer);
 
     return listItem;
-}
+};
 
-function deleteTask(taskId, listItem) {
+const deleteTask = (taskId, listItem) => {
     const user = firebase.auth().currentUser;
     if (user) {
         const userUid = user.uid;
@@ -111,9 +111,9 @@ function deleteTask(taskId, listItem) {
     } else {
         console.error('No se pudo obtener el usuario actual');
     }
-}
+};
 
-function loadTasks(userUid) {
+const loadTasks = (userUid) => {
     const taskRef = firebase.database().ref('users/' + userUid + '/tasks');
     taskRef.on('value', (snapshot) => {
         const tasks = snapshot.val();
@@ -126,4 +126,4 @@ function loadTasks(userUid) {
             taskList.appendChild(listItem);
         }
     });
-}
+};

@@ -37,4 +37,3 @@ document.getElementById('loginForm').addEventListener('submit', (e) => {
             alert('Error al iniciar sesión: ' + errorMessage);
         });
 });
-

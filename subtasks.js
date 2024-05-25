@@ -12,16 +12,16 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const taskId = urlParams.get('taskId'); // Obtener taskId de la URL
 
     const taskName = urlParams.get('taskName');
     document.getElementById('taskName').textContent = `Lista de tareas de : ${taskName}`;
 
-    firebase.auth().onAuthStateChanged((user) => {
+    firebase.auth().onAuthStateChanged(user => {
         if (user) {
-            document.getElementById('subtaskForm').addEventListener('submit', function(e) {
+            document.getElementById('subtaskForm').addEventListener('submit', (e) => {
                 e.preventDefault();
                 const subtaskInput = document.getElementById('subtaskInput').value;
                 if (subtaskInput.trim() !== '') {
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-function addSubtask(userUid, taskId, subtaskText) {
+const addSubtask = (userUid, taskId, subtaskText) => {
     const subtaskRef = firebase.database().ref('users/' + userUid + '/tasks/' + taskId + '/subtasks').push();
     const subtaskId = subtaskRef.key;
 
@@ -49,9 +49,9 @@ function addSubtask(userUid, taskId, subtaskText) {
     }).catch((error) => {
         console.error('Error al guardar la subtarea:', error);
     });
-}
+};
 
-function createSubtaskElement(subtaskId, subtaskText, completed) {
+const createSubtaskElement = (subtaskId, subtaskText, completed) => {
     const listItem = document.createElement('li');
     listItem.textContent = subtaskText;
 
@@ -65,14 +65,14 @@ function createSubtaskElement(subtaskId, subtaskText, completed) {
     const completeButton = document.createElement('img');
     completeButton.src = './Imagenes/complete.png'; 
     completeButton.alt = 'Completar';
-    completeButton.addEventListener('click', function() {
+    completeButton.addEventListener('click', () => {
         toggleCompleteSubtask(subtaskId, listItem);
     });
 
     const deleteButton = document.createElement('img');
     deleteButton.src = './Imagenes/delete.png'; 
     deleteButton.alt = 'Eliminar';
-    deleteButton.addEventListener('click', function() {
+    deleteButton.addEventListener('click', () => {
         deleteSubtask(subtaskId, listItem);
     });
 
@@ -81,9 +81,9 @@ function createSubtaskElement(subtaskId, subtaskText, completed) {
     listItem.appendChild(buttonsContainer);
 
     return listItem;
-}
+};
 
-function toggleCompleteSubtask(subtaskId, listItem) {
+const toggleCompleteSubtask = (subtaskId, listItem) => {
     const user = firebase.auth().currentUser;
     const urlParams = new URLSearchParams(window.location.search);
     const taskId = urlParams.get('taskId');
@@ -103,9 +103,9 @@ function toggleCompleteSubtask(subtaskId, listItem) {
     } else {
         console.error('No se pudo obtener el usuario actual');
     }
-}
+};
 
-function deleteSubtask(subtaskId, listItem) {
+const deleteSubtask = (subtaskId, listItem) => {
     const user = firebase.auth().currentUser;
     const urlParams = new URLSearchParams(window.location.search);
     const taskId = urlParams.get('taskId');
@@ -123,9 +123,9 @@ function deleteSubtask(subtaskId, listItem) {
     } else {
         console.error('No se pudo obtener el usuario actual');
     }
-}
+};
 
-function loadSubtasks(userUid, taskId) {
+const loadSubtasks = (userUid, taskId) => {
     const subtaskRef = firebase.database().ref('users/' + userUid + '/tasks/' + taskId + '/subtasks');
     subtaskRef.on('value', (snapshot) => {
         const subtasks = snapshot.val();
@@ -141,8 +141,8 @@ function loadSubtasks(userUid, taskId) {
             subtaskList.appendChild(listItem);
         }
     });
-}
+};
 
-document.getElementById('backToListsButton').addEventListener('click', function() {
+document.getElementById('backToListsButton').addEventListener('click', () => {
     window.location.href = 'tasks.html'; // Cambia 'lists.html' por la URL de tu pantalla de listas
 });
