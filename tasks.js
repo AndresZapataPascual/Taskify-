@@ -27,6 +27,14 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = 'inicio.html';
         }
     });
+
+    document.getElementById('Signoff').addEventListener('click', function() {
+        firebase.auth().signOut().then(() => {
+            window.location.href = 'index.html'; 
+        }).catch((error) => {
+            console.error('Error al cerrar sesión:', error);
+        });
+    });
 });
 
 document.getElementById('taskForm').addEventListener('submit', function(e) {
@@ -43,7 +51,6 @@ function addTask(taskText) {
     if (user) {
         const userUid = user.uid;
         const taskRef = firebase.database().ref('users/' + userUid + '/tasks').push();
-        
 
         taskRef.set({
             task: taskText
@@ -120,4 +127,3 @@ function loadTasks(userUid) {
         }
     });
 }
-

@@ -1,4 +1,6 @@
 body {
+    display: flex;
+    flex-direction: column;
     font-family: 'Kanit', sans-serif;
     margin: 0;
     padding: 0;
@@ -50,28 +52,56 @@ input[type="text"] {
     justify-content: space-between;
 }
 
-
 #subtaskForm {
     margin-bottom: 20px;
-    
 }
 
 #subtaskList {
     list-style-type: none;
     padding: 0;
+    width: 100%; /* Ancho de la lista de tareas */
 }
 
 #subtaskList li {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 80%;
+    width: 100%; /* Ancho de cada elemento de la lista */
     padding: 10px 0;
     border-bottom: 1px solid #ccc;
+    box-sizing: border-box; /* Incluye el padding y el borde en el ancho total */
 }
 
 .subtask-buttons img {
     width: 20px;
     height: 20px;
     cursor: pointer;
+}
+
+.completed {
+    text-decoration: line-through;
+    color: gray;
+}
+
+.subtask-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.subtask-buttons img {
+    cursor: pointer;
+    margin-left: 5px;
+    margin-right: 10px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35vw; 
+}
+
+#backToListsButton {
+    width: 30%;
+    padding: 10px 20px; 
 }

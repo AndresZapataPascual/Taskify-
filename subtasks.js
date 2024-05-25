@@ -37,14 +37,13 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-
-
 function addSubtask(userUid, taskId, subtaskText) {
     const subtaskRef = firebase.database().ref('users/' + userUid + '/tasks/' + taskId + '/subtasks').push();
     const subtaskId = subtaskRef.key;
 
     subtaskRef.set({
-        subtask: subtaskText
+        subtask: subtaskText,
+        completed: false
     }).then(() => {
         
     }).catch((error) => {
@@ -52,12 +51,23 @@ function addSubtask(userUid, taskId, subtaskText) {
     });
 }
 
-function createSubtaskElement(subtaskId, subtaskText) {
+function createSubtaskElement(subtaskId, subtaskText, completed) {
     const listItem = document.createElement('li');
     listItem.textContent = subtaskText;
 
+    if (completed) {
+        listItem.classList.add('completed');
+    }
+
     const buttonsContainer = document.createElement('div');
     buttonsContainer.className = 'subtask-buttons';
+
+    const completeButton = document.createElement('img');
+    completeButton.src = './Imagenes/complete.png'; 
+    completeButton.alt = 'Completar';
+    completeButton.addEventListener('click', function() {
+        toggleCompleteSubtask(subtaskId, listItem);
+    });
 
     const deleteButton = document.createElement('img');
     deleteButton.src = './Imagenes/delete.png'; 
@@ -66,8 +76,33 @@ function createSubtaskElement(subtaskId, subtaskText) {
         deleteSubtask(subtaskId, listItem);
     });
 
-    listItem.appendChild(deleteButton);
+    buttonsContainer.appendChild(completeButton);
+    buttonsContainer.appendChild(deleteButton);
+    listItem.appendChild(buttonsContainer);
+
     return listItem;
+}
+
+function toggleCompleteSubtask(subtaskId, listItem) {
+    const user = firebase.auth().currentUser;
+    const urlParams = new URLSearchParams(window.location.search);
+    const taskId = urlParams.get('taskId');
+
+    if (user) {
+        const userUid = user.uid;
+        const subtaskRef = firebase.database().ref('users/' + userUid + '/tasks/' + taskId + '/subtasks/' + subtaskId);
+        
+        subtaskRef.once('value').then(snapshot => {
+            const completed = snapshot.val().completed;
+            subtaskRef.update({ completed: !completed }).then(() => {
+                listItem.classList.toggle('completed');
+            });
+        }).catch(error => {
+            console.error('Error al actualizar la subtarea:', error);
+        });
+    } else {
+        console.error('No se pudo obtener el usuario actual');
+    }
 }
 
 function deleteSubtask(subtaskId, listItem) {
@@ -101,9 +136,13 @@ function loadSubtasks(userUid, taskId) {
 
         for (const subtaskId in subtasks) {
             const subtaskText = subtasks[subtaskId].subtask;
-            const listItem = createSubtaskElement(subtaskId, subtaskText);
+            const completed = subtasks[subtaskId].completed;
+            const listItem = createSubtaskElement(subtaskId, subtaskText, completed);
             subtaskList.appendChild(listItem);
         }
     });
 }
 
+document.getElementById('backToListsButton').addEventListener('click', function() {
+    window.location.href = 'tasks.html'; // Cambia 'lists.html' por la URL de tu pantalla de listas
+});
