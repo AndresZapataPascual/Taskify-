@@ -37,7 +37,7 @@ document.getElementById('signupForm').addEventListener('submit', (e) => {
             }).then(() => {
                 console.log('Usuario registrado exitosamente con ID:', user.uid);
 
-                // Redireccionar o mostrar mensaje de éxito
+                // Redirecciona al login
                 window.location.href = 'login.html';
 
             }).catch((error) => {
